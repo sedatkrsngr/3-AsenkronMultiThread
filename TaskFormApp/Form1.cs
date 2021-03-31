@@ -28,14 +28,14 @@ namespace TaskFormApp
 
 
 
-              Task<string> okuma =  ReadFileAsync(); // asenkton kullanınca metotda async yok sonradan ekledik await kullanana kadar thread kullanılmıyor şuan sadece atama yaptık Task söz vermek gibi düşünebiliriz. Yani o veriyi mutlaka sana döndürecek biz sadece awaitle çağırırız Eğer arada başka işler yaptıracaksak await ile çağırmayı daha sonra yaparız diğer işlemleri yaptıktan sonra await ile ilgili atamaları gerçekleştiririz
-            
+            Task<string> okuma = ReadFileAsync(); // asenkton kullanınca metotda async yok sonradan ekledik await kullanana kadar thread kullanılmıyor şuan sadece atama yaptık Task söz vermek gibi düşünebiliriz. Yani o veriyi mutlaka sana döndürecek biz sadece awaitle çağırırız Eğer arada başka işler yaptıracaksak await ile çağırmayı daha sonra yaparız diğer işlemleri yaptıktan sonra await ile ilgili atamaları gerçekleştiririz
+
             richTextBox2.Text = await new HttpClient().GetStringAsync("https://www.google.com");//Burada bir işlem yapsın diye bir threadı meşgul ettik
-            
+
             data = await okuma;
-            
+
             richTextBox1.Text = data;
-            
+
         }
 
         private void btnCounter_Click(object sender, EventArgs e)//bunu koymamızın sebebi işlem olurken sayaç işlemini gerçekleştirmeize izin veriyor mu kontrol etmek için  senkronda izin vermiyor işlem bitene kadar ardından eğer işlem zamanında dokunduysak senkron bitince sayactaki bastığımız kadar attırımı yapar ama asenkronda işlem sürse dahi biz yan tarafta arttırma işlemini devam ettiriyoruz
@@ -64,13 +64,24 @@ namespace TaskFormApp
             string data = string.Empty;
             using (StreamReader reader = new StreamReader("dosya.txt"))//kalıtım aldığı sınıf IDisposable İnterfacesinden kalıtım aldığı için using kullanabilriz. İşlem bitince bellekten atılır dosya.text bin/debug içerisine eklendi
             {
- 
-               Task<string> myTask =  reader.ReadToEndAsync();//şuan thread meşgul değil await kullanıldığı an bir alt satıra geçmez
+
+                Task<string> myTask = reader.ReadToEndAsync();//şuan thread meşgul değil await kullanıldığı an bir alt satıra geçmez
 
                 await Task.Delay(5000);// İşlem yapılınca 5  sn bekle
                 data = await myTask;//wait burada işlem tamamlanana kadar bekle demek alt satıra geçme demek
             }
-            return  data;
+            return data;
+        }
+
+        private Task<string> ReadFileAsync2()//asenkron kodumuz
+        {
+            string data = string.Empty;
+            StreamReader reader = new StreamReader("dosya.txt");
+            return reader.ReadToEndAsync(); //burada sadece atama yaptığımız için async await kullanmamıza gerek yok
+
+
+
+
         }
     }
 }
