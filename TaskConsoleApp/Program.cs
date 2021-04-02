@@ -35,13 +35,10 @@ namespace TaskConsoleApp
                 tastList.Add(GetContentAsync(x));
             });
 
-            var contents = await Task.WhenAll(tastList.ToArray());//Content[] dizi döner işlemler tamamlanırsa alta geçer await kullanmasaydık atamam Task<Content[]> şeklinde olacaktır.
-            //WhenAll tüm işlemleri gerçekleştir demek
+            var firstData = await Task.WhenAny(tastList);//When.Any ise ilk gerçekleşeni dön demek. Bu örnekte listeden bir tane Task<Content> döner
 
-            contents.ToList().ForEach(x => {
 
-                Console.WriteLine($"{x.Site} boyut : {x.Len}");
-            });
+            Console.WriteLine($"{firstData.Result.Site} - {firstData.Result.Len}");// İlk datanın sonucunu görücez
         }
 
         public async static Task<Content> GetContentAsync(string url)
