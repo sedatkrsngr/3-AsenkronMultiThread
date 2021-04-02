@@ -35,10 +35,11 @@ namespace TaskConsoleApp
                 tastList.Add(GetContentAsync(x));
             });
 
-            var firstData = await Task.WhenAny(tastList);//When.Any ise ilk gerçekleşeni dön demek. Bu örnekte listeden bir tane Task<Content> döner
+            Console.WriteLine("WaitAll önce");
+            Task.WaitAll(tastList.ToArray());//WaitAll ise WhenAll dan farkı işlem anında kullanıldığı threadı bloklama yapar ve başka işlem yapmasını engeller senkrona benzer
+            bool result = Task.WaitAll(tastList.ToArray(),3000);// belirtilen milisaniye içerisinde veriyi getiriyorsa true getirmiyorsa false yapar
+            Console.WriteLine("WaitAll Sonra");
 
-
-            Console.WriteLine($"{firstData.Result.Site} - {firstData.Result.Len}");// İlk datanın sonucunu görücez
         }
 
         public async static Task<Content> GetContentAsync(string url)
