@@ -35,10 +35,10 @@ namespace TaskConsoleApp
                 tastList.Add(GetContentAsync(x));
             });
 
-            Console.WriteLine("WaitAll önce");
-            Task.WaitAll(tastList.ToArray());//WaitAll ise WhenAll dan farkı işlem anında kullanıldığı threadı bloklama yapar ve başka işlem yapmasını engeller senkrona benzer
-            bool result = Task.WaitAll(tastList.ToArray(),3000);// belirtilen milisaniye içerisinde veriyi getiriyorsa true getirmiyorsa false yapar
-            Console.WriteLine("WaitAll Sonra");
+
+           var firstTaskIndex = Task.WaitAny(tastList.ToArray());//WaitAny ise WhenAny dwn farkı işlem anında kullanıldığı threadı bloklama yapar ve başka işlem yapmasını engeller senkrona benzer
+            //ayrıca geriye Taskın listedeki indexini döner. Yakalamak için taskList[firstTaskIndex].Result. diyerek değerleri alabilirsiniz.
+
 
         }
 
