@@ -13,47 +13,36 @@ namespace TaskConsoleApp
         public string Site { get; set; }
         public int Len { get; set; }
     }
+
+    public class Status
+    {
+        public DateTime date { get; set; }
+        public int threadId { get; set; }
+    }
+
     internal class Program
     {
         private async static Task Main(string[] args)
         {
-            Console.WriteLine("Main threadı :" + Thread.CurrentThread.ManagedThreadId);// Çalışan threadı görürüz
-
-            List<string> urlList = new List<string>()
+            var myTask = Task.Factory.StartNew((nesne) => //StartNew de run metodu gibi ayrı thread kullanılmasını sağlar farkı ise task çalışırken içerisine objemizi dönebiliyoruz ve Task içirisinde çalıştırabiliyoruz.
             {
-                "https://www.google.com",
-                "https://www.microsoft.com",
-                "https://www.amazon.com",
-                "https://www.n11.com",
-                "https://www.haberturk.com"
-            };
+                Console.WriteLine("My Task Çalıştı");
+                var status = nesne as Status;
+                status.threadId = Thread.CurrentThread.ManagedThreadId;//datetime yakalanmış nesneye burda Taskın içinde kullanıılan ıd atıyoruz
 
-            List<Task<Content>> tastList = new List<Task<Content>>();
-
-            urlList.ToList().ForEach(x =>
+            }, new Status()//Taska girecek nesnenin bir değerini atıyoruz
             {
-                tastList.Add(GetContentAsync(x));
+                date = DateTime.Now
             });
 
+            await myTask;
 
-           var firstTaskIndex = Task.WaitAny(tastList.ToArray());//WaitAny ise WhenAny dwn farkı işlem anında kullanıldığı threadı bloklama yapar ve başka işlem yapmasını engeller senkrona benzer
-            //ayrıca geriye Taskın listedeki indexini döner. Yakalamak için taskList[firstTaskIndex].Result. diyerek değerleri alabilirsiniz.
+            Status s = myTask.AsyncState as Status;// Bu metotla içerisindeki nesneyi yakalarız
 
-
+            Console.WriteLine(s.date);
+            Console.WriteLine(s.threadId);
         }
 
-        public async static Task<Content> GetContentAsync(string url)
-        {
-            Content content = new Content();
-            var data = await new HttpClient().GetStringAsync(url);
-
-            content.Site = url;
-            content.Len = data.Length;
-
-            Console.WriteLine("GetContentAsync threadı :" + Thread.CurrentThread.ManagedThreadId);// Çalışan threadı görürüz
-
-            return content;
-
-        }
+        
     }
 }
