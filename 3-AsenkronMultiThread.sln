@@ -17,9 +17,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TaskCansellationApp", "Task
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TaskInstanceApp", "TaskInstanceApp\TaskInstanceApp.csproj", "{15DD8A03-35D0-49AD-A74C-2A0B27486462}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TLPForeachParallelApp", "TLPForeachParallelApp\TLPForeachParallelApp.csproj", "{8BAE3940-7A42-4199-9A63-02A55C009FE3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TLPForeachParallelApp", "TLPForeachParallelApp\TLPForeachParallelApp.csproj", "{8BAE3940-7A42-4199-9A63-02A55C009FE3}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TLPForEachParallelFormApp", "TLPForEachParallelFormApp\TLPForEachParallelFormApp.csproj", "{4F301E66-FA67-40D8-8472-475D99FAE72C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PLINQApp", "PLINQApp\PLINQApp.csproj", "{45777BE9-0CA6-4346-BAA9-90DC86A75343}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -63,6 +65,10 @@ Global
 		{4F301E66-FA67-40D8-8472-475D99FAE72C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4F301E66-FA67-40D8-8472-475D99FAE72C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4F301E66-FA67-40D8-8472-475D99FAE72C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{45777BE9-0CA6-4346-BAA9-90DC86A75343}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{45777BE9-0CA6-4346-BAA9-90DC86A75343}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{45777BE9-0CA6-4346-BAA9-90DC86A75343}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{45777BE9-0CA6-4346-BAA9-90DC86A75343}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
